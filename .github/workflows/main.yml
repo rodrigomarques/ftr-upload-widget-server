@@ -60,6 +60,20 @@ jobs:
           cache-from: type=gha
           tags: |
             ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:v1
+      
+      - name: Deploy to App Runner
+        id: deploy-app-runner
+        uses: awslambda/aws-app-runner-deploy@main
+        with:
+          service: widtget-server
+          image: ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:v1
+          region: ${{ vars.AWS_REGION }}
+          cpu: 1vCPU
+          memory: 2GB
+          port: 3333
+          access-role-arn: arn:aws:iam::762233749846:role/app-runner-service-role
+          wait-for-service-stability-seconds: 180
+
 
       #- name: Build and push image AWS ECR
       #  id: build-push-image
