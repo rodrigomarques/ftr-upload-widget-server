@@ -51,18 +51,6 @@ jobs:
         run: |
           SHA=$(echo $GITHUB_SHA | head -c7)
           echo "SHA=$SHA" >> $GITHUB_OUTPUT
-
-      - name: Only load image to scan
-        id: load-image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          load: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          tags: |
-            ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:scan
-
       
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -71,7 +59,7 @@ jobs:
           push: true
           cache-from: type=gha
           tags: |
-            ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:${{ steps.generate_tag.outputs.SHA }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:v1
 
       #- name: Build and push image AWS ECR
       #  id: build-push-image
