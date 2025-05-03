@@ -73,6 +73,12 @@ jobs:
           port: 3333
           access-role-arn: arn:aws:iam::762233749846:role/app-runner-service-role
           wait-for-service-stability-seconds: 180
+          environment-variables: |
+            CLOUDFLARE_ACCESS_KEY_ID="#"
+            CLOUDFLARE_SECRET_ACCESS_KEY="#"
+            CLOUDFLARE_BUCKET="#"
+            CLOUDFLARE_ACCOUNT_ID="#"
+            CLOUDFLARE_PUBLIC_URL="http://localhost.com/"
 
       - name: App Runner Check
         run: echo "App running... ${{ steps.deploy-app-runner.outputs.service-url }}"
