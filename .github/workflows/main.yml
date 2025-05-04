@@ -59,7 +59,9 @@ jobs:
           push: true
           #cache-from: type=gha
           tags: |
-            ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:latest
+            ${{ steps.login-ecr.outputs.registry }}/rodrigomarques/upload-widget-server:latest
+          
+      #${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:latest
       
       #- name: Render task definition
       #  id: reder-task-definition
